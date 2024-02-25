@@ -6,6 +6,8 @@ const Contacts = () => {
   const contactContext = useContext(ContactContext);
   const { contacts, filteredContacts } = contactContext;
 
+  console.log(contacts);
+
   return (
     <>
       {filteredContacts && filteredContacts.length > 0 ? (
