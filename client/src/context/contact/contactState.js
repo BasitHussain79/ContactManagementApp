@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useId, useReducer } from "react";
+import axios from "../../dataProvider";
 import setAuthToken from "../../utils/setAuthToken";
 import {
   ADD_CONTACT,

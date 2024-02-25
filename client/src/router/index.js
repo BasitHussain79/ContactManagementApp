@@ -6,11 +6,15 @@ import RequireAuth from "./RequireAuth";
 import defaultRoutes from "./routes";
 
 const AppRouter = () => {
-  const { isAuthenticated, loadUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { isAuthenticated, loadUser } = useContext(AuthContext);
 
   useEffect(() => {
-    isAuthenticated ? loadUser() : navigate("/");
+    if (isAuthenticated) {
+      loadUser();
+    } else {
+      navigate("/login");
+    }
   }, [isAuthenticated]);
 
   const { protectedRoutes, publicRoutes } = defaultRoutes;

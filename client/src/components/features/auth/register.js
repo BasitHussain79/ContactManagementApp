@@ -51,7 +51,6 @@ const RegisterDefault = () => {
     } else if (password !== confirmPassword) {
       alertHandler('Password does not match!', 'danger');
     } else {
-      console.log(register, ' register');
       registerUserHandler(register);
     }
   };

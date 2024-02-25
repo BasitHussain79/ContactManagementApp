@@ -10,9 +10,9 @@ import Contacts from "./Contacts";
 import ContactForm from "./Form";
 
 const HomeDefault = () => {
+  const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const { getAllContacts } = useContext(ContactContext);
-  const navigate = useNavigate();
 
   const { loadUser, isAuthenticated } = authContext;
 
@@ -21,7 +21,7 @@ const HomeDefault = () => {
       loadUser();
       getAllContacts();
     } else {
-      navigate("/");
+      navigate("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);

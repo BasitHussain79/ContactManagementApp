@@ -1,7 +1,6 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
-import reducerMethod from './authReducer';
-import AuthContext from './authContext';
+import React, { useReducer } from "react";
+import axios from "../../dataProvider";
+import setAuthToken from "../../utils/setAuthToken";
 import {
   AUTH_FAIL,
   AUTH_SUCCESS,
@@ -11,12 +10,13 @@ import {
   LOGOUT,
   REGISTER_FAIL,
   REGISTER_SUCCESS,
-} from '../type';
-import setAuthToken from '../../utils/setAuthToken';
+} from "../type";
+import AuthContext from "./authContext";
+import reducerMethod from "./authReducer";
 
 const AuthState = ({ children }) => {
   const initialState = {
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem("token"),
     isAuthenticated: false,
     isLoading: true,
     user: null,
@@ -30,8 +30,7 @@ const AuthState = ({ children }) => {
       setAuthToken(localStorage.token);
     }
     try {
-      const res = await axios.get('api/auth');
-      // console.log(res);
+      const res = await axios.get("api/auth");
       dispatch({ type: AUTH_SUCCESS, payload: res.data });
     } catch (err) {
       dispatch({ type: AUTH_FAIL, payload: err.response.data.msg });
@@ -43,10 +42,10 @@ const AuthState = ({ children }) => {
     try {
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
-      const res = await axios.post('/api/users', data, config);
+      const res = await axios.post("/api/users", data, config);
       dispatch({ type: REGISTER_SUCCESS, payload: res.data });
       if (localStorage.token) loadUser();
     } catch (err) {
@@ -58,11 +57,10 @@ const AuthState = ({ children }) => {
     try {
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
-      const res = await axios.post('/api/auth', data, config);
-      console.log(res.data, '***');
+      const res = await axios.post("/api/auth", data, config);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       if (localStorage.token) loadUser();
     } catch (err) {
