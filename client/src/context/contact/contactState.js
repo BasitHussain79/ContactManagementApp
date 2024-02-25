@@ -1,6 +1,6 @@
-import React, { useId, useReducer } from 'react';
-import ContactContext from './contactContext';
-import reducerMethod from './contactReducer';
+import axios from "axios";
+import React, { useId, useReducer } from "react";
+import setAuthToken from "../../utils/setAuthToken";
 import {
   ADD_CONTACT,
   CLEAR_CURRENT_CONTACT,
@@ -9,35 +9,35 @@ import {
   GET_CONTACTS,
   SEARCH_CONTACT,
   UPDATE_CONTACT,
-} from '../type';
-import axios from 'axios';
-import setAuthToken from '../../utils/setAuthToken';
+} from "../type";
+import ContactContext from "./contactContext";
+import reducerMethod from "./contactReducer";
 
 const ContactState = ({ children }) => {
   const id = useId();
   const initialState = {
     contacts: [
-      {
-        id: 1,
-        name: 'Basit',
-        email: 'basit@gmail.com',
-        phone: '1111111111',
-        relation: 'Personal',
-      },
-      {
-        id: 2,
-        name: 'Areeb',
-        email: 'areeb@gmail.com',
-        phone: '1111211111',
-        relation: 'Personal',
-      },
-      {
-        id: 3,
-        name: 'Owais',
-        email: 'owais@gmail.com',
-        phone: '1111111222',
-        relation: 'Professional',
-      },
+      //   {
+      //     id: 1,
+      //     name: 'Basit',
+      //     email: 'basit@gmail.com',
+      //     phone: '1111111111',
+      //     relation: 'Personal',
+      //   },
+      //   {
+      //     id: 2,
+      //     name: 'Areeb',
+      //     email: 'areeb@gmail.com',
+      //     phone: '1111211111',
+      //     relation: 'Personal',
+      //   },
+      //   {
+      //     id: 3,
+      //     name: 'Owais',
+      //     email: 'owais@gmail.com',
+      //     phone: '1111111222',
+      //     relation: 'Professional',
+      //   },
     ],
     currentContact: null,
     filteredContacts: [],
@@ -52,7 +52,7 @@ const ContactState = ({ children }) => {
     }
 
     try {
-      const res = await axios.get('api/contacts');
+      const res = await axios.get("api/contacts");
       dispatch({
         type: GET_CONTACTS,
         payload: res.data,
@@ -70,12 +70,12 @@ const ContactState = ({ children }) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
 
     try {
-      const res = await axios.post('api/contacts', data, config);
+      const res = await axios.post("api/contacts", data, config);
       dispatch({
         type: ADD_CONTACT,
         payload: res.data,
@@ -108,7 +108,7 @@ const ContactState = ({ children }) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
 
