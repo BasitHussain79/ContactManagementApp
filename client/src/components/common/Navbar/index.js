@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import Container from 'react-bootstrap/esm/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import { Link } from 'react-router-dom';
-import AuthContext from '../../../context/auth/authContext';
+import React, { useContext } from "react";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/esm/Container";
+import { Link } from "react-router-dom";
+import AuthContext from "../../../context/auth/authContext";
 
 const TopNavbar = () => {
   const authContext = useContext(AuthContext);
@@ -11,14 +11,22 @@ const TopNavbar = () => {
 
   const loggedInUser = (
     <>
-      <Nav style={{ color: '#fff' }}>
-        Hello{' '}
-        <span style={{ fontWeight: '600', marginLeft: '5px' }}>
-          {user?.name ?? ''}
+      <Nav style={{ color: "#fff" }}>
+        Hello{" "}
+        <span style={{ fontWeight: "600", marginLeft: "5px" }}>
+          {user?.name ?? ""}
         </span>
       </Nav>
       <Nav>
-        <a onClick={logoutHandler}>Logout</a>
+        <a
+          onClick={logoutHandler}
+          style={{
+            color: "#fff",
+            cursor: "pointer",
+          }}
+        >
+          Logout
+        </a>
       </Nav>
     </>
   );
@@ -26,25 +34,25 @@ const TopNavbar = () => {
   const guestUser = (
     <>
       <Nav>
-        <Link to='/register'>Register</Link>
+        <Link to="/register">Register</Link>
       </Nav>
       <Nav>
-        <Link to='/login'>Login</Link>
+        <Link to="/login">Login</Link>
       </Nav>
     </>
   );
   return (
-    <Navbar bg='primary' data-bs-theme='dark' className='py-3'>
-      <Container className='space-between'>
+    <Navbar bg="primary" data-bs-theme="dark" className="py-3">
+      <Container className="space-between">
         <div>
-          <Link to='/'>
+          <Link to="/">
             <Navbar.Brand>Contact Management App</Navbar.Brand>
           </Link>
         </div>
         <div
           style={{
-            display: 'flex',
-            gap: '16px',
+            display: "flex",
+            gap: "16px",
           }}
         >
           {isAuthenticated ? loggedInUser : guestUser}

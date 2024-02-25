@@ -31,7 +31,17 @@ const Contacts = () => {
           />
         ))
       ) : (
-        <h4>No contacts found...</h4>
+        <h4
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+            fontSize: "14px",
+            marginTop: "20px",
+          }}
+        >
+          No contacts found...
+        </h4>
       )}
     </>
   );
