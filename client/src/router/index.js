@@ -1,16 +1,17 @@
-import React, { useContext, useEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import Layout from './Layout';
-import RequireAuth from './RequireAuth';
-import AuthContext from '../context/auth/authContext';
-import defaultRoutes from './routes';
+import React, { useContext, useEffect } from "react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import AuthContext from "../context/auth/authContext";
+import Layout from "./Layout";
+import RequireAuth from "./RequireAuth";
+import defaultRoutes from "./routes";
 
 const AppRouter = () => {
   const { isAuthenticated, loadUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    loadUser();
-  }, []);
+    isAuthenticated ? loadUser() : navigate("/");
+  }, [isAuthenticated]);
 
   const { protectedRoutes, publicRoutes } = defaultRoutes;
 
@@ -26,7 +27,7 @@ const AppRouter = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<Layout />}>
+      <Route path="/" element={<Layout />}>
         {/* public routes */}
         {!isAuthenticated && <>{publicPageRoutes}</>}
 
@@ -35,8 +36,8 @@ const AppRouter = () => {
 
         {/* catch all */}
         <Route
-          path='*'
-          element={<Navigate to={isAuthenticated ? '/' : '/login'} />}
+          path="*"
+          element={<Navigate to={isAuthenticated ? "/" : "/login"} />}
         />
       </Route>
     </Routes>

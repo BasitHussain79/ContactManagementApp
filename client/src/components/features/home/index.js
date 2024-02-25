@@ -1,24 +1,30 @@
-import React, { useContext, useEffect } from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Layout from '../../ui/Layout';
-import ContactForm from './Form';
-import Contacts from './Contacts';
-import Search from '../../common/Search';
-import AuthContext from '../../../context/auth/authContext';
-import ContactContext from '../../../context/contact/contactContext';
+import React, { useContext, useEffect } from "react";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../../../context/auth/authContext";
+import ContactContext from "../../../context/contact/contactContext";
+import Search from "../../common/Search";
+import Layout from "../../ui/Layout";
+import Contacts from "./Contacts";
+import ContactForm from "./Form";
 
 const HomeDefault = () => {
   const authContext = useContext(AuthContext);
   const { getAllContacts } = useContext(ContactContext);
+  const navigate = useNavigate();
 
-  const { loadUser } = authContext;
+  const { loadUser, isAuthenticated } = authContext;
 
   useEffect(() => {
-    loadUser();
-    getAllContacts();
+    if (isAuthenticated) {
+      loadUser();
+      getAllContacts();
+    } else {
+      navigate("/");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <Layout>
