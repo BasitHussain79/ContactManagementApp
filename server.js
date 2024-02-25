@@ -1,15 +1,13 @@
 const express = require("express");
 const connectDB = require("./db/db");
+const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
 
 connectDB();
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
+app.use(cors());
 
 app.use(express.json({ extended: false }));
 
