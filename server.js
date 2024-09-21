@@ -7,7 +7,14 @@ const app = express();
 
 connectDB();
 
-app.use(cors());
+// Configure CORS
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Replace this with your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json({ extended: false }));
 
